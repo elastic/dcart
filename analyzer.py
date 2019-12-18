@@ -1,6 +1,5 @@
 import time
 import pickle
-import pdb
 import os
 import sys
 import math
@@ -102,7 +101,6 @@ def analyze(log_path):
                     print('*** header mismatch ***')
                     time.sleep(1)
                     system_alert_score += 2.0
-                    pdb.set_trace()
         
         # 2) entropy analysis
         entropy = calculate_entropy(original_data['contents'])
