@@ -18,18 +18,18 @@ png = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]
 zip = [0x1F, 0x8B]
 
 known_headers = {}
-known_headers['bmp']  = b'"".join(map(chr,bmp))'
-known_headers['dll']  = b'"".join(map(chr,mz))'
-known_headers['doc']  = b'"".join(map(chr,doc))'
-known_headers['docx'] = b'"".join(map(chr,pk))'
-known_headers['exe']  = b'"".join(map(chr,mz))'
-known_headers['gif']  = b'"".join(map(chr,gif))'
-known_headers['jpg']  = b'"".join(map(chr,jpg))'
-known_headers['pdf']  = b'"".join(map(chr,pdf))'
-known_headers['png']  = b'"".join(map(chr,png))'
-known_headers['pptx'] = b'"".join(map(chr,pk))'
-known_headers['xlsx'] = b'"".join(map(chr,pk))'
-known_headers['zip']  = b'"".join(map(chr,zip))'
+known_headers['bmp']  = ''.join(map(chr,bmp)).encode()
+known_headers['dll']  = ''.join(map(chr,mz)).encode()
+known_headers['doc']  = ''.join(map(chr,doc)).encode()
+known_headers['docx'] = ''.join(map(chr,pk)).encode()
+known_headers['exe']  = ''.join(map(chr,mz)).encode()
+known_headers['gif']  = ''.join(map(chr,gif)).encode()
+known_headers['jpg']  = ''.join(map(chr,jpg)).encode()
+known_headers['pdf']  = ''.join(map(chr,pdf)).encode()
+known_headers['png']  = ''.join(map(chr,png)).encode()
+known_headers['pptx'] = ''.join(map(chr,pk)).encode()
+known_headers['xlsx'] = ''.join(map(chr,pk)).encode()
+known_headers['zip']  = ''.join(map(chr,zip)).encode()
 
 entropy_max = {}
 entropy_max['bmp']  = 7.5
@@ -92,15 +92,17 @@ def analyze(log_path):
 
         if original_data['operation'] == 'RENAME':
             if prev_file_extension in known_headers:
-                if len(original_data['contents']) >= len(known_headers[prev_file_extension]):
-                    if not original_data['contents'].startswith(known_headers[prev_file_extension]):
+                if len(original_data['contents']) >= len(known_headers[prev_file_extension][1:]):
+                    if not original_data['contents'].startswith(known_headers[prev_file_extension][1:]):
                         print('*** renamed file header mismatch ***')
                         system_alert_score += 4.0
         elif file_extension in known_headers:
-            if len(original_data['contents']) >= len(known_headers[file_extension]):
-                if not original_data['contents'].startswith(known_headers[file_extension]):
+            if len(original_data['contents']) >= len(known_headers[file_extension][1:]):
+                if not original_data['contents'].startswith(known_headers[file_extension][1:]):
                     print('*** header mismatch ***')
+                    time.sleep(1)
                     system_alert_score += 2.0
+                    pdb.set_trace()
         
         # 2) entropy analysis
         entropy = calculate_entropy(original_data['contents'])
