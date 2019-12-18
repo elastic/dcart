@@ -99,7 +99,6 @@ def analyze(log_path):
             if len(original_data['contents']) >= len(known_headers[file_extension][1:]):
                 if not original_data['contents'].startswith(known_headers[file_extension][1:]):
                     print('*** header mismatch ***')
-                    time.sleep(1)
                     system_alert_score += 2.0
         
         # 2) entropy analysis
