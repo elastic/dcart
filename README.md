@@ -5,9 +5,9 @@ This project provides a framework for capturing relevant event data from ransomw
 Please keep in mind that this is proof of concept code that has been made available for research purposes only. This code and / or project SHOULD NOT be used in a production testing environment.
 
 ## Setup / Dependencies
-Windows 7+ (Built under Win7x64 SP1)
-Visual Studio (Built with VS2015 Pro)
-Windows Driver Kit (Built with 10.0.15063.0)
+Windows 7+ (Built under Win7x64 SP1)  
+Visual Studio (Built with VS2015 Pro)  
+Windows Driver Kit (Built with 10.0.15063.0)  
 Python 3 (Tested with 3.4.4)
 
 Easiest way to build the driver is to create a new project based off of a template: Templates->Visual C++->Windows Driver->Filter Driver: Filesystem Mini-filter
